@@ -24,7 +24,7 @@ class AuthStore {
       'https://oauth.vk.com/authorize' +
       '?client_id=6478954' +
       '&display=page' +
-      '&redirect_uri=http://localhost:3000/login-callback' +
+      '&redirect_uri='+window.location.origin+'/login-callback' +
       '&scope=friends' +
       '&response_type=token' +
       '&v=5.95' +

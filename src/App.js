@@ -11,7 +11,8 @@ import LoginCallBackContainer from './containers/LoginCallBackContainer';
 @observer
 class App extends Component {
   componentWillMount () {
-    console.log(this.props)
+    console.log(window.location)
+
     if (AuthStore.token === null) {
       if (localStorage.getItem('token')) {
         AuthStore.setTokenFromLocalStorage();
@@ -22,6 +23,7 @@ class App extends Component {
   }
 
   render () {
+
     return (
       <Switch>
         <Route exact path={'/login'} component={ LoginContainer }/>
