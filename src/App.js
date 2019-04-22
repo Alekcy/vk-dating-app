@@ -1,35 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import AuthStore from './stores/AuthStore';
-import { observer, inject } from 'mobx-react';
+import { observer,  } from 'mobx-react';
+import { Route, withRouter } from 'react-router';
+import { Switch } from 'react-router-dom';
+
+import LoginContainer from './containers/LoginContainer';
+import LoginCallBackContainer from './containers/LoginCallBackContainer';
 
 @observer
 class App extends Component {
   componentWillMount () {
-    AuthStore.setTokenFromLocalStorage();
+    console.log(this.props)
+    if (AuthStore.token === null) {
+      if (localStorage.getItem('token')) {
+        AuthStore.setTokenFromLocalStorage();
+      } else {
+        this.props.history.push('/login')
+      }
+    }
   }
 
-  render() {
+  render () {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Switch>
+        <Route exact path={'/login'} component={ LoginContainer }/>
+        <Route exact path={'/login-callback'} component={ LoginCallBackContainer }/>
+      </Switch>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
