@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import AuthStore from './stores/AuthStore';
+import { observer, inject } from 'mobx-react';
 
+@observer
 class App extends Component {
+  componentWillMount () {
+    AuthStore.setTokenFromLocalStorage();
+  }
+
   render() {
     return (
       <div className="App">
